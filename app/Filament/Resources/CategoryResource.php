@@ -27,31 +27,48 @@ class CategoryResource extends Resource
     }
 
     public static function form(Form $form): Form
-    {
-        return $form
+{
+    return $form
+        ->schema([
+            //card
+            Forms\Components\Card::make()
             ->schema([
-                //
-            ]);
-    }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+                //image
+                Forms\Components\FileUpload::make('image')
+                  ->label('Category Image')
+                  ->placeholder('Category Image')
+                  ->required(),
+
+                //name
+                Forms\Components\TextInput::make('name')
+                  ->label('Category Name')
+                  ->placeholder('Category Name')
+                  ->required(),
+
+        ])
+    ]);
+}
+
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            Tables\Columns\ImageColumn::make('image')->circular(),
+            Tables\Columns\TextColumn::make('name')->searchable(),
+        ])
+        ->filters([
+            //
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]),
+    ]);
+}
 
     public static function getRelations(): array
     {
