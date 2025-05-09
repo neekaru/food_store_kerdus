@@ -40,7 +40,7 @@ class SliderResource extends Resource
                         ->label('Masukkan Gambar Slide')
                         ->placeholder('Masukkan Gambar Slide')
                         ->directory('slider'),
-                    
+
                     // link
                     TextInput::make('link')
                         ->url()
@@ -55,7 +55,10 @@ class SliderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')->circular(),
-                Tables\Columns\TextColumn::make('link')->searchable(),                
+                Tables\Columns\TextColumn::make('link')
+                    ->searchable()
+                    ->url(fn (Slider $record): string => $record->link)
+                    ->openUrlInNewTab(),                
             ])
             ->filters([
                 //
