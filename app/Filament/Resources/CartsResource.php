@@ -73,6 +73,12 @@ class CartsResource extends Resource
                 Tables\Columns\TextColumn::make('qty')
                     ->label('Quantity')
                     ->sortable(),
+        
+                Tables\Columns\TextColumn::make('total')
+                  ->money('IDR', locale: 'id')
+                  ->getStateUsing(fn($record) => $record->qty * $record->product->price)
+                  ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
