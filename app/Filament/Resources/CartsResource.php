@@ -2,14 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CartsResource\Pages;
-use App\Models\Cart;
-use App\Models\Customer;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Cart;
 use Filament\Tables;
+use App\Models\Product;
+use App\Models\Customer;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Filament\Resources\CartsResource\Pages;
 
 class CartsResource extends Resource
 {
@@ -41,7 +42,9 @@ class CartsResource extends Resource
                         ->required(),
 
                     Forms\Components\Select::make('product_id')
-                        ->relationship('product', 'title')
+                        ->options(function (): array {
+                            return Product::all()->pluck('title', 'id')->all();
+                        })
                         ->label('Product')
                         ->searchable()
                         ->required(),
