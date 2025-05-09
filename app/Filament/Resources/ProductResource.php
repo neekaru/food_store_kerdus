@@ -46,12 +46,17 @@ public static function getNavigationSort(): ?int
                         ->placeholder('Upload Image')
                         ->required(),
 
-                    // Description
-                    Forms\Components\Textarea::make('description')
-                        ->label('Product Description')
-                        ->placeholder('Enter product description')
-                        ->required()
-                        ->maxLength(500),
+                    // Description dari nafis
+                    // Forms\Components\Textarea::make('description')
+                    //     ->label('Product Description')
+                    //     ->placeholder('Enter product description')
+                    //     ->required()
+                    //     ->maxLength(500),
+
+                    Forms\Components\RichEditor::make('description')
+                            ->label('Product Description')
+                            ->placeholder('Enter product description')
+                            ->required(),
 
                     // Price
                     Forms\Components\TextInput::make('price')
