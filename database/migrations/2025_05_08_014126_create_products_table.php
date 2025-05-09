@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->string('slug');
                 $table->text('description');
                 $table->integer('price');
-                $table->integer('weight');
+                $table->integer('weight')->default(0);
                 $table->timestamps();
 
                 // Add foreign key constraint if categories table exists
