@@ -57,7 +57,7 @@ class SliderResource extends Resource
                 Tables\Columns\ImageColumn::make('image')->circular(),
                 Tables\Columns\TextColumn::make('link')
                     ->searchable()
-                    ->url(fn (Slider $record): string => $record->link)
+                    ->url(fn (Slider $record): ?string => $record->link)
                     ->openUrlInNewTab(),                
             ])
             ->filters([
