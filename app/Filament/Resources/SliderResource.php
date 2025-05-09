@@ -22,7 +22,7 @@ class SliderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-window';
 
-    protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $navigationGroup = 'Content';
 
     public static function getNavigationSort(): ?int
     {
@@ -58,7 +58,7 @@ class SliderResource extends Resource
                 Tables\Columns\TextColumn::make('link')
                     ->searchable()
                     ->url(fn (Slider $record): ?string => $record->link)
-                    ->openUrlInNewTab(),                
+                    ->openUrlInNewTab(),
             ])
             ->filters([
                 //

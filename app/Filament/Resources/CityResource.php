@@ -3,20 +3,22 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\City;
 use Filament\Tables;
-use App\Models\Province;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\ProvincesResource\Pages;
+use App\Filament\Resources\CityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ProvincesResource\RelationManagers;
+use App\Filament\Resources\CityResource\RelationManagers;
+use App\Models\Province;
 
-class ProvincesResource extends Resource
+class CityResource extends Resource
 {
-    protected static ?string $model = Province::class;
+    protected static ?string $model = City::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -32,17 +34,24 @@ class ProvincesResource extends Resource
     {
         return $form
             ->schema([
-                //card
                 Card::make()
-                ->schema([
-                    //name
-                    Forms\Components\TextInput::make('name')
-                    ->label('Provinsi Name')
-                    ->placeholder('Provinsi Name')
-                    ->required(),
-                ])
+                    
+                    ->schema([
+                        //name
+                        Forms\Components\TextInput::make('name')
+                            ->label('City Name')
+                            ->placeholder('Masukkan Nama Kota')
+                            ->required(),
+                        
+                        Select::make('province_id')
+                            ->options(function (): array {
+                                    return Province::all()->pluck('name', 'id')->all();
+                                })
+                            ->label('Nama Provinsi')
+                            ->searchable()
+                            ->required(),
+                    ])
             ]);
-
     }
 
     public static function table(Table $table): Table
@@ -50,6 +59,7 @@ class ProvincesResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('province.name')->searchable(),
             ])
             ->filters([
                 //
@@ -74,9 +84,9 @@ class ProvincesResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProvinces::route('/'),
-            'create' => Pages\CreateProvinces::route('/create'),
-            'edit' => Pages\EditProvinces::route('/{record}/edit'),
+            'index' => Pages\ListCities::route('/'),
+            'create' => Pages\CreateCity::route('/create'),
+            'edit' => Pages\EditCity::route('/{record}/edit'),
         ];
     }
 }

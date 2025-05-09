@@ -19,7 +19,7 @@ class CartsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
 
-    protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $navigationGroup = 'Shopping';
 
 
     public static function getNavigationSort(): ?int

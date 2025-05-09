@@ -23,7 +23,7 @@ class CustomerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
-    protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $navigationGroup = 'User Management';
 
 
     public static function getNavigationSort(): ?int
@@ -64,7 +64,7 @@ class CustomerResource extends Resource
                         ->required(),
                 ])
             ]);
-        
+
     }
 
     public static function table(Table $table): Table
