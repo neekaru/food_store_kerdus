@@ -46,12 +46,6 @@ public static function getNavigationSort(): ?int
                         ->placeholder('Upload Image')
                         ->required(),
 
-                    // Name
-                    Forms\Components\TextInput::make('name')
-                        ->label('Product Name')
-                        ->placeholder('Enter Product Name')
-                        ->required(),
-
                     // Description
                     Forms\Components\Textarea::make('description')
                         ->label('Product Description')
@@ -72,7 +66,8 @@ public static function getNavigationSort(): ?int
                         ->relationship('category', 'name')
                         ->placeholder('Select a category')
                         ->required(),
-                       Forms\Components\TextInput::make('weight')
+
+                    Forms\Components\TextInput::make('weight')
                         ->label('Weight (Kg)')
                         ->numeric()
                         ->placeholder('e.g. 0.5')
@@ -94,7 +89,7 @@ public static function table(Table $table): Table
                 ->circular(),
 
             // Name (Searchable)
-            Tables\Columns\TextColumn::make('name')
+            Tables\Columns\TextColumn::make('title')
                 ->label('Product Name')
                 ->searchable(),
 
