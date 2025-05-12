@@ -39,6 +39,16 @@ enum Status: string implements HasLabel
             Status::Failed => 'Failed',
         };
     }
+    
+    public function getColor(): string
+    {
+        return match ($this) {
+            Status::Pending => 'warning',  // Warna kuning 
+            Status::Success => 'success',  // Warna hijau
+            Status::Expired => 'secondary', // Warna abu-abu
+            Status::Failed => 'danger',   // Warna merah
+        };
+    }
 };
 
 class TransactionResource extends Resource
