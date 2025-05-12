@@ -15,7 +15,7 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Mask;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Tables\Filters\SelectFilter;
@@ -95,7 +95,7 @@ class TransactionResource extends Resource
                             ->placeholder('Contoh : INV-001')
                             ->required(),
 
-                        TextArea::make('address')
+                        Textarea::make('address')
                             ->label('Alamat')
                             ->placeholder('Masukkan Alamat Anda')
                             ->required()
