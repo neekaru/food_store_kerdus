@@ -128,38 +128,67 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('invoice')
-                    ->label('Invoice')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('customer.name')
-                    ->label('Customer')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total')
-                    ->label('Total')
-                    ->money('IDR', true)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Tanggal Transaksi')
-                    ->dateTime('d M Y')
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('invoice')->searchable(),
+                Tables\Columns\TextColumn::make('customer.name')->searchable(),
+                Tables\Columns\TextColumn::make('total')->money('IDR', locale: 'id'),
+                Tables\Columns\TextColumn::make('status')->badge()
+                ->color(fn(string $state): string => match ($state) {
+                    'pending' => 'warning',
+                    'success' => 'success',
+                    'expired' => 'gray',
+                    'failed' => 'danger',
+                }),
+                Tables\Columns\TextColumn::make('created_at'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
+
+    // public static function table(Table $table): Table
+    // {
+    //     return $table
+    //         ->columns([
+    //             Tables\Columns\TextColumn::make('invoice')
+    //                 ->label('Invoice')
+    //                 ->searchable()
+    //                 ->sortable(),
+    //             Tables\Columns\TextColumn::make('customer.name')
+    //                 ->label('Customer')
+    //                 ->searchable()
+    //                 ->sortable(),
+    //             Tables\Columns\TextColumn::make('total')
+    //                 ->label('Total')
+    //                 ->money('IDR', true)
+    //                 ->sortable(),
+    //             Tables\Columns\TextColumn::make('status')
+    //                 ->label('Status')
+    //                 ->sortable(),
+    //             Tables\Columns\TextColumn::make('created_at')
+    //                 ->label('Tanggal Transaksi')
+    //                 ->dateTime('d M Y')
+    //                 ->sortable(),
+    //         ])
+    //         ->filters([
+    //             //
+    //         ])
+    //         ->actions([
+    //             Tables\Actions\EditAction::make(),
+    //         ])
+    //         ->bulkActions([
+    //             Tables\Actions\BulkActionGroup::make([
+    //                 Tables\Actions\DeleteBulkAction::make(),
+    //             ]),
+    //         ]);
+    // }
 
     public static function getRelations(): array
     {
@@ -172,8 +201,12 @@ class TransactionResource extends Resource
     {
         return [
             'index' => Pages\ListTransactions::route('/'),
-            'create' => Pages\CreateTransaction::route('/create'),
-            'edit' => Pages\EditTransaction::route('/{record}/edit'),
         ];
     }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
 }
