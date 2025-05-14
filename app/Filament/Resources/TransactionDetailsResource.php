@@ -21,6 +21,8 @@ class TransactionDetailsResource extends Resource
 
     protected static ?string $navigationGroup = 'Shopping';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function getNavigationSort(): ?int
     {
         return 1;
