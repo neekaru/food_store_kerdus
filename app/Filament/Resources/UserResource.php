@@ -20,7 +20,7 @@ class UserResource extends Resource
 
     public static function getNavigationSort(): ?int
     {
-        return 1;
+        return 8;
     }
 
     public static function form(Form $form): Form
@@ -38,11 +38,14 @@ class UserResource extends Resource
                         ->label('Email')
                         ->placeholder('Enter email')
                         ->email()
+                        ->unique(ignorable: fn($record) => $record)                       
                         ->required(),
 
                     Forms\Components\TextInput::make('password')
                         ->label('Password')
                         ->placeholder('Enter password')
+                        ->dehydrateStateUsing(fn ($state) => $state ? bcrypt($state) : null)
+                        ->dehydrated(fn ($state) => filled($state))
                         ->password(),
                 ])
             ]);
