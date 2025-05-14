@@ -24,7 +24,7 @@ class CartsResource extends Resource
 
     public static function getNavigationSort(): ?int
     {
-        return 1;
+        return 4;
     }
 
     public static function form(Form $form): Form
@@ -104,12 +104,15 @@ class CartsResource extends Resource
         ];
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListCarts::route('/'),
-            'create' => Pages\CreateCarts::route('/create'),
-            'edit' => Pages\EditCarts::route('/{record}/edit'),
         ];
     }
 }
