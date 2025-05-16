@@ -80,9 +80,9 @@ class CartsResource extends Resource
                   ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('l, d M Y H.i')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)                    
             ])
             ->filters([
                 //

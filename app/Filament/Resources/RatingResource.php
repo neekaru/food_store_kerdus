@@ -97,7 +97,8 @@ class RatingResource extends Resource
                     ->label('Review')
                     ->limit(50),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    // ->dateTime('d M Y H.i')
+                    ->formatStateUsing(fn (string $state): string => \Carbon\Carbon::parse($state)->locale('id')->format('d M Y H.i'))
                     ->sortable(),
             ])
             ->filters([
