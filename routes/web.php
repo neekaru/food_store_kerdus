@@ -9,3 +9,4 @@ Route::get('/', function () {
 });
 
 Route::get('/register', Auth\Register::class)->name('register');
+Route::get('/login', Auth\Login::class)->name('login');
