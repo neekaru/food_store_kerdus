@@ -36,6 +36,14 @@ class Login extends Component
         return $this->redirect('/login', navigate: true);
     }
 
+    public function mount()
+    {
+        // redirect if user is already logged in
+        if(auth()->guard('customer')->check()) {
+            return $this->redirect('/account/my-orders', navigate: true);
+        }
+    }
+
     public function render()
     {
         return view('livewire.auth.login');

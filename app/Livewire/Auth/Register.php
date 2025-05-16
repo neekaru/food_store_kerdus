@@ -39,6 +39,13 @@ class Register extends Component
         return $this->redirect('/login', navigate: true);
     }
 
+    public function mount()
+    {
+        if(auth()->guard('customer')->check()) {
+            return $this->redirect('/account/my-orders', navigate: true);
+        }
+    }
+
     public function render()
     {
         return view('livewire.auth.register');
