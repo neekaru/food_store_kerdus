@@ -138,7 +138,7 @@ class TransactionResource extends Resource
                     'expired' => 'gray',
                     'failed' => 'danger',
                 }),
-                Tables\Columns\TextColumn::make('created_at')->datetime("D, d M Y H.i"),
+                Tables\Columns\TextColumn::make('created_at')->datetime("l, d M Y H.i"),
             ])
             ->filters([
                 //
