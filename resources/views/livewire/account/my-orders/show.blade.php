@@ -128,3 +128,20 @@
         </div>
     </div>
 </div>
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+<script>
+    const payment = async (snap_token) => {
+        windows.snap.pay(snap_token {
+            onSuccess: function() {
+                windows.location = "/account/my-orders/" + snap_token
+            },
+            onPending: function() {
+                windows.location = "/account/my-orders/" + snap_token
+            },
+            onError: function() {
+                windows.location = "/account/my-orders/" + snap_token
+            }
+        })
+    }
+</script>
