@@ -6,7 +6,7 @@
                     ? asset('/storage/avatars/' . auth()->guard('customer')->user()->image) 
                     : 'https://cdn.jsdelivr.net/gh/SantriKoding-com/assets-food-store/images/user.png';
             @endphp
-            <img src="{{ $image }}" class="object-fit-cover rounded-circle" height="45" />
+            <img src="{{ $image }}" class="object-fit-cover rounded-circle" height="45" width="45" />
             <span class="fw-bold fs-6 ms-2">{{ auth()->guard('customer')->user()->name }}</span>
         </div>
         <div>

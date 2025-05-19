@@ -14,3 +14,16 @@ Route::get('/', function () {
 
 Route::get('/register', Auth\Register::class)->name('register');
 Route::get('/login', Auth\Login::class)->name('login');
+Route::get('/logout', Auth\Logout::class)->name('logout');
+
+//route group account
+Route::middleware('auth:customer')->group(function () {
+    
+    Route::group(['prefix' => 'account'], function () {
+        
+        //route my order
+        Route::get('/my-orders', Account\MyOrders\Index::class)->name('account.my-orders.index');
+  
+    });
+
+});
