@@ -18,7 +18,8 @@
                     <span class="fw-bold">{{ number_format($product->ratings_avg_rating, 1) }}</span>
                 </div>
                 <div>
-                    
+                    <!-- button add to cart -->
+                    <livewire:web.cart.btn-add-to-cart :product_id="$product->id" />
                 </div>
             </div>
         </div>
