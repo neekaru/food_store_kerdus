@@ -55,9 +55,15 @@ Food Store - Eat Your Favorite Foods
                                                 <div class="text-end">
                                                     <div class="input-group justify-content-center align-items-center group-btn-qty">
                                                         
+                                                        <!-- decrement qty -->
+                                                        <livewire:web.cart.btn-decrement :cart_id="$cart->id" :product_id="$cart->product_id" :disabled="$cart->qty" />
+
                                                         <!-- qty cart -->
                                                         <input type="number" step="1" max="10" value="{{ $cart->qty }}" name="quantity" class="quantity-field border-0 text-center w-25" style="background: transparent;">
                                                         
+                                                        <!-- Increment Qty -->
+                                                        <livewire:web.cart.btn-increment :cart_id="$cart->id" :product_id="$cart->product_id" />
+
                                                     </div>
                                                 </div>
                                             </div>
