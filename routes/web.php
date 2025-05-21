@@ -4,8 +4,6 @@ namespace App\Livewire;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function (){ return view('welcome');});
-
 //route register
 Route::get('/register', Auth\Register::class)->name('register');
 
@@ -34,8 +32,14 @@ Route::middleware('auth:customer')->group(function () {
 
 });
 
-//route products index
-Route::get('/products', Web\Products\Index::class)->name('web.product.index');
+//route home
+Route::get('/', Web\Home\Index::class)->name('home');
+
+// //route products index
+// Route::get('/products', Web\Products\Index::class)->name('web.product.index');
+
+//route category show
+Route::get('/category/{slug}', Web\Category\Show::class)->name('web.category.show');
 
 //route product show
 Route::get('/products/{slug}', Web\Products\Index::class)->name('web.product.show');
