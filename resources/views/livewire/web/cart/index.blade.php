@@ -45,6 +45,7 @@ Food Store - Eat Your Favorite Foods
                                                 <div class="text-end">
                                                     
                                                     <!-- btn delete -->
+                                                    <livewire:web.cart.btn-delete :cart_id="$cart->id" />
 
                                                 </div>
                                             </div>
