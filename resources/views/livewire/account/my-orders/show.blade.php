@@ -28,7 +28,7 @@
                                 <td>:</td>
                                 <td>
                                     @if($transaction->status == 'pending')
-                                    <button class="btn btn-sm btn-warning rounded border-0">
+                                    <button class="btn btn-sm btn-warning rounded border-0" onclick="payment('{{ $transaction->snap_token }}')">
                                         Bayar Sekarang
                                     </button>
                                     @elseif ($transaction->status == 'success')
@@ -75,7 +75,7 @@
                             <tr>
                                 <td>Cost</td>
                                 <td>:</td>
-                                <td>{{ strtoupper($transaction->shipping->shipping_service) }}</td>
+                                <td>Rp. {{ number_format($transaction->shipping->shipping_cost) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -92,36 +92,38 @@
                 <div class="row">
                     @foreach ($transaction->transactionDetails()->get() as $item)
                     <div class="col-12 col-md-12 mb-4">
-                        <div class="row g-0">
-                            <div class="col-5 col-md-4">
-                                <img src="{{ asset('/storage/' . $item->product->image) }}" class="img-fluid w-100 h-100 object-fit-cover rounded-start">
-                            </div>
-                        </div>
-                        <div class="col-7 col-md-8">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mt-4">
-                                    <div class="text-center">
-                                        <h6 class="card-title">{{ $item->product->title }}</h6>
-                                    </div>
-                                    @if($transaction->status == 'success')
-                                        <div class="text-center">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{ $item->id }}" class="btn-rating me-2 shadow-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                </svg>
-                                            </a>
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-5 col-md-4">
+                                    <img src="{{ asset('/storage/' . $item->product->image) }}" class="img-fluid w-100 h-100 object-fit-cover rounded-start">
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <div class="text-start">
+                                                <h6 class="card-title">{{ $item->product->title }}</h6>
+                                            </div>
+                                            @if($transaction->status == 'success')
+                                                <div class="text-center">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{ $item->id }}" class="btn-rating me-2 shadow-sm">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
-                                    @endif
-                                </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <div class="text-start">
-                                        <p class="text-muted">Qty: <strong>{{ $item->qty }}</strong></p>
-                                        <span class="text-success fw-bold">Rp. {{ number_format($item->product->price * $item->qty) }}</span>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <div class="text-start">
+                                                <p class="text-muted">Qty: <strong>{{ $item->qty }}</strong></p>
+                                                <span class="text-success fw-bold">Rp. {{ number_format($item->product->price * $item->qty) }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -132,15 +134,15 @@
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
 <script>
     const payment = async (snap_token) => {
-        windows.snap.pay(snap_token {
+        window.snap.pay(snap_token, {
             onSuccess: function() {
-                windows.location = "/account/my-orders/" + snap_token
+                window.location = "/account/my-orders/" + snap_token
             },
             onPending: function() {
-                windows.location = "/account/my-orders/" + snap_token
+                window.location = "/account/my-orders/" + snap_token
             },
             onError: function() {
-                windows.location = "/account/my-orders/" + snap_token
+                window.location = "/account/my-orders/" + snap_token
             }
         })
     }

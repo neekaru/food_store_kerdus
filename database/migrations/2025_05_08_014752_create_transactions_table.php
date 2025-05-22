@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('city_id');
-            $table->string('invoince');
+            $table->string('invoice');
             $table->integer('weight');
             $table->text('address');
             $table->decimal('total', 8, 2);
