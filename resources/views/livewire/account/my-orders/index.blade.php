@@ -29,7 +29,7 @@
                                             </div>
                                             <div>
                                                 @if($transaction->status == 'pending')
-                                                <button class="btn btn-warning btn-sm rounded shadow-sm border-0">PENDING</button>
+                                                <button class="btn btn-warning btn-sm rounded shadow-sm border-0" onclick="payment('{{ $transaction->snap_token }}')">PENDING</button>
                                                 @elseif($transaction->status == 'success')
                                                 <button class="btn btn-success btn-sm rounded shadow-sm border-0">SUCCESS</button>
                                                 @elseif($transaction->status == 'expired')
