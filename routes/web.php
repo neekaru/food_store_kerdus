@@ -46,3 +46,7 @@ Route::get('/products/{slug}', Web\Products\Index::class)->name('web.product.sho
 
 //route cart
 Route::get('/cart', Web\Cart\Index::class)->name('web.cart.index')->middleware('auth:customer');
+
+
+//route checkout
+Route::get('/checkout', Web\Checkout\Index::class)->name('web.checkout.index')->middleware('auth:customer');
