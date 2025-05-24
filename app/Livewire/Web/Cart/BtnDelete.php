@@ -8,32 +8,17 @@ use Livewire\Component;
 class BtnDelete extends Component
 {
     public $cart_id;
-    
-    /**
-     * mount
-     *
-     * @param  mixed $cart_id
-     * @return void
-     */
     public function mount($cart_id)
     {
         $this->cart_id = $cart_id;
     }
-    
-    /**
-     * delete
-     *
-     * @return void
-     */
     public function delete()
     {
         $cart = Cart::find($this->cart_id);
         $cart->delete();
 
-        //session flash
-        session()->flash('success', 'Keranjang Berhasil Dihapus');
+        session()->flash('success', 'keranjang berhasil di hapus');
 
-        //redirect
         return $this->redirect('/cart', navigate: true);
     }
 
